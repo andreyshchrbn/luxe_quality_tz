@@ -1,4 +1,3 @@
-import { expect } from '@wdio/globals';
 import { CartPage } from './cart.page';
 
 export class CartActions {

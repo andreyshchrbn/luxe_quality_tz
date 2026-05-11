@@ -1,4 +1,3 @@
-import { browser, expect } from '@wdio/globals';
 import { CheckoutOverviewPage } from './checkout-overview.page';
 import { verifyCurrentUrl } from '../../../utils/url.utils';
 

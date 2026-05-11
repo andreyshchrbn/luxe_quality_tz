@@ -1,4 +1,3 @@
-import { browser, expect } from '@wdio/globals';
 import { LoginPage } from './login.page';
 import { verifyCurrentUrl } from '../../utils/url.utils';
 

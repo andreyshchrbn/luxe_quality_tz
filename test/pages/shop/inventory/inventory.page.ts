@@ -1,4 +1,3 @@
-import { $ } from '@wdio/globals';
 import { inventoryLocators } from './inventory.locators';
 
 export class InventoryPage {
