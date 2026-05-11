@@ -16,19 +16,6 @@ export class InventoryActions {
         await this.inventoryPage.cartLink.click();
     }
 
-    async resetAppStateIfNotEmpty(): Promise<void> {
-        const hasCartItems = await this.inventoryPage.cartBadge.isExisting();
-
-        if (hasCartItems) {
-            await this.inventoryPage.openMenuButton.click();
-            await this.inventoryPage.resetAppStateLink.waitForDisplayed();
-            await this.inventoryPage.resetAppStateLink.click();
-            await this.inventoryPage.closeMenuButton.click();
-
-            await expect(this.inventoryPage.cartBadge).not.toExist();
-        }
-    }
-
     async verifyEmptyCart(): Promise<void> {
         await expect(this.inventoryPage.cartBadge).not.toExist();
     }

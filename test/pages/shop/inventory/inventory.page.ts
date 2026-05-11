@@ -12,16 +12,4 @@ export class InventoryPage {
     get cartLink() {
         return $(inventoryLocators.cartLink);
     }
-
-    get openMenuButton() {
-        return $(inventoryLocators.openMenuButton);
-    }
-
-    get resetAppStateLink() {
-        return $(inventoryLocators.resetAppStateLink);
-    }
-
-    get closeMenuButton() {
-        return $(inventoryLocators.closeMenuButton);
-    }
 }
