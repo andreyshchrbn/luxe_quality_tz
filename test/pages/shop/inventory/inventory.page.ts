@@ -12,4 +12,16 @@ export class InventoryPage {
     get cartLink() {
         return $(inventoryLocators.cartLink);
     }
+
+    get activeSortOption() {
+        return $(inventoryLocators.activeSortOption);
+    }
+
+    get sortSelect() {
+        return $(inventoryLocators.sortSelect);
+    }
+
+    get inventoryItemPrices() {
+        return $$(inventoryLocators.inventoryItemPrices);
+    }
 }
