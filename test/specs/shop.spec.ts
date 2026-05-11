@@ -1,25 +1,23 @@
-import { sidebarActions } from '../components/sidebar/sidebar.actions';
 import { loginActions } from '../pages/login/login.actions';
 import { cartActions } from '../pages/shop/cart/cart.actions';
 import { checkoutCompleteActions } from '../pages/shop/checkout-complete/checkout-complete.actions';
 import { checkoutInformationActions } from '../pages/shop/checkout-information/checkout-information.actions';
 import { checkoutOverviewActions } from '../pages/shop/checkout-overview/checkout-overview.actions';
 import { inventoryActions } from '../pages/shop/inventory/inventory.actions';
-import { testRuntimeConfig } from '../config/env';
+import { loginToInventory } from '../utils/auth.utils';
 import { generateCheckoutData } from '../utils/dataGenerate';
+import { resetAppState } from '../utils/state.utils';
 import productsData from '../data/product.data.json';
+import { sidebarActions } from '../components/sidebar/sidebar.actions';
 
-describe('Shop Functional Tests', () => {
+describe('Checkout Flow', () => {
     beforeEach(async () => {
-        await loginActions.openPage();
-        await loginActions.loginAs(testRuntimeConfig.users.validUser);
-
-        await sidebarActions.resetAppState();
+        await loginToInventory();
+        await resetAppState();
     });
 
     it('TC-8: Valid Checkout - e2e', async () => {
         const randomUser = generateCheckoutData();
-        const product = productsData.bikeLight;
 
         await inventoryActions.addBikeLightToCart();
 
@@ -34,11 +32,38 @@ describe('Shop Functional Tests', () => {
 
         await checkoutInformationActions.fillCheckoutForm(randomUser);
         await checkoutInformationActions.continueCheckout(/.*checkout-step-two.html/);
-        await checkoutOverviewActions.verifyOverviewPrice(product.price);
+        await checkoutOverviewActions.verifyOverviewPrice(productsData.bikeLight.price);
 
         await checkoutOverviewActions.finishOrder(/.*checkout-complete.html/);
         await checkoutCompleteActions.verifyOrderComplete('Thank you for your order!');
         await checkoutCompleteActions.returnToHome(/.*inventory.html/);
         await inventoryActions.verifyEmptyCart();
+    });
+});
+
+describe.only('Cart Persistence Flow', () => {
+    beforeEach(async () => {
+        await loginToInventory();
+    });
+
+    it('TC-5: Added product is kept in cart after logout and login', async () => {
+        await inventoryActions.addBikeLightToCart();
+        await inventoryActions.verifyCartCounter('1');
+
+        await sidebarActions.openMenu();
+        await sidebarActions.verifyMenuItems([
+            'All Items',
+            'About',
+            'Logout',
+            'Reset App State',
+        ]);
+        await sidebarActions.logout(/.*\/$/);
+        await loginActions.verifyLoginFormIsEmpty();
+
+        await loginToInventory();
+        await inventoryActions.verifyCartCounter('1');
+
+        await inventoryActions.openCart();
+        await cartActions.verifyCartContent(productsData.bikeLight.name);
     });
 });

@@ -21,14 +21,6 @@ export class SidebarActions {
         await this.sidebarPage.logoutLink.click();
         await verifyCurrentUrl(expectedUrl);
     }
-
-    async resetAppState(): Promise<void> {
-        await this.openMenu();
-        await this.sidebarPage.resetAppStateLink.waitForDisplayed();
-        await this.sidebarPage.resetAppStateLink.click();
-        await this.sidebarPage.closeMenuButton.waitForClickable();
-        await this.sidebarPage.closeMenuButton.click();
-    }
 }
 
 export const sidebarActions = new SidebarActions();
