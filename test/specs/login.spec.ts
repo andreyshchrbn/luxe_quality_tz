@@ -1,5 +1,5 @@
 import { loginActions } from '../pages/login/login.actions';
-import usersData from '../data/users.json';
+import { testRuntimeConfig } from '../config/env';
 
 describe('Authentication Flows', () => {
     beforeEach(async () => {
@@ -7,12 +7,12 @@ describe('Authentication Flows', () => {
     });
 
     it('TC-1: Valid login', async () => {
-        await loginActions.loginAs(usersData.valid_user);
+        await loginActions.loginAs(testRuntimeConfig.users.validUser);
         await loginActions.verifyLoginSuccess(/.*inventory.html/);
     });
 
     it('TC-2: Login with invalid password', async () => {
-        await loginActions.loginAs(usersData.invalid_user);
+        await loginActions.loginAs(testRuntimeConfig.users.invalidUser);
         await loginActions.verifyPasswordIsMasked();
 
         await loginActions.verifyUsernameInputHasErrorStyle();
@@ -27,7 +27,7 @@ describe('Authentication Flows', () => {
     });
 
     it('TC-3: Login with locked out test login', async () => {
-        await loginActions.loginAs(usersData.locked_user);
+        await loginActions.loginAs(testRuntimeConfig.users.lockedUser);
         await loginActions.verifyPasswordIsMasked();
 
         await loginActions.verifyUsernameInputHasErrorStyle();

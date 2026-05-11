@@ -5,6 +5,10 @@ import dotenv from 'dotenv';
 const supportedEnvironments = ['test', 'prod'] as const;
 
 type TestEnvironment = (typeof supportedEnvironments)[number];
+type UserCredentials = {
+    username: string;
+    password: string;
+};
 
 const projectRoot = path.resolve(__dirname, '../..');
 
@@ -44,9 +48,19 @@ const getRequiredString = (name: string): string => {
     return value;
 };
 
+const getUserCredentials = (prefix: string): UserCredentials => ({
+    username: getRequiredString(`${prefix}_USERNAME`),
+    password: getRequiredString(`${prefix}_PASSWORD`),
+});
+
 loadEnvironmentFiles([`.env.${testEnvironment}`, `.env.${testEnvironment}.local`]);
 
 export const testRuntimeConfig = {
     environment: testEnvironment,
     baseUrl: getRequiredString('E2E_BASE_URL'),
+    users: {
+        validUser: getUserCredentials('VALID_USER'),
+        invalidUser: getUserCredentials('INVALID_USER'),
+        lockedUser: getUserCredentials('LOCKED_USER'),
+    },
 } as const;

@@ -1,4 +1,3 @@
-import { browser } from '@wdio/globals';
 import { testRuntimeConfig } from './test/config/env';
 
 export const config: WebdriverIO.Config = {
