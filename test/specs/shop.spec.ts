@@ -4,14 +4,14 @@ import { checkoutCompleteActions } from '../pages/shop/checkout-complete/checkou
 import { checkoutInformationActions } from '../pages/shop/checkout-information/checkout-information.actions';
 import { checkoutOverviewActions } from '../pages/shop/checkout-overview/checkout-overview.actions';
 import { inventoryActions } from '../pages/shop/inventory/inventory.actions';
-import usersData from '../data/users.json';
+import { testRuntimeConfig } from '../config/env';
 import { generateCheckoutData } from '../utils/dataGenerate';
 import productsData from '../data/product.data.json';
 
 describe('Shop Functional Tests', () => {
     beforeEach(async () => {
         await loginActions.openPage();
-        await loginActions.loginAs(usersData.valid_user);
+        await loginActions.loginAs(testRuntimeConfig.users.validUser);
 
         await inventoryActions.resetAppStateIfNotEmpty();
     });
