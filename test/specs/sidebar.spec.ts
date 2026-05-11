@@ -1,12 +1,10 @@
 import { sidebarActions } from '../components/sidebar/sidebar.actions';
-import { testRuntimeConfig } from '../config/env';
+import { loginToInventory } from '../utils/auth.utils';
 import { loginActions } from '../pages/login/login.actions';
 
 describe('Sidebar Menu Flows', () => {
     beforeEach(async () => {
-        await loginActions.openPage();
-        await loginActions.loginAs(testRuntimeConfig.users.validUser);
-        await loginActions.verifyLoginSuccess(/.*inventory.html/);
+        await loginToInventory();
     });
 
     it('TC-4: Logout', async () => {
