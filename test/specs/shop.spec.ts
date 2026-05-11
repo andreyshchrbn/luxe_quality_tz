@@ -67,15 +67,16 @@ describe('Cart Persistence Flow', () => {
         await inventoryActions.openCart();
         await cartActions.verifyCartContent(productsData.bikeLight.name);
     });
-})
-    describe.only('Sorting Flow', () => {
-        beforeEach(async () => {
-            await loginToInventory();
-        });
-        it('TC-6: Products can be sorted by price from low to high', async () => {
-            await inventoryActions.sortByPriceLowToHigh();
-            await inventoryActions.verifySelectedSortOption('Price (low to high)');
-            await inventoryActions.verifyProductsAreSortedByPriceLowToHigh();
-        });
+});
+
+describe('Sorting Flow', () => {
+    beforeEach(async () => {
+        await loginToInventory();
     });
 
+    it('TC-6: Products can be sorted by price from low to high', async () => {
+        await inventoryActions.sortByPriceLowToHigh();
+        await inventoryActions.verifySelectedSortOption('Price (low to high)');
+        await inventoryActions.verifyProductsAreSortedByPriceLowToHigh();
+    });
+});
