@@ -1,3 +1,4 @@
+import { sidebarActions } from '../components/sidebar/sidebar.actions';
 import { loginActions } from '../pages/login/login.actions';
 import { cartActions } from '../pages/shop/cart/cart.actions';
 import { checkoutCompleteActions } from '../pages/shop/checkout-complete/checkout-complete.actions';
@@ -13,7 +14,7 @@ describe('Shop Functional Tests', () => {
         await loginActions.openPage();
         await loginActions.loginAs(testRuntimeConfig.users.validUser);
 
-        await inventoryActions.resetAppStateIfNotEmpty();
+        await sidebarActions.resetAppState();
     });
 
     it('TC-8: Valid Checkout - e2e', async () => {
