@@ -37,10 +37,16 @@ npm run test:prod
 
 ## Environment
 
-Project uses only one env variable:
+Project uses env variables for base URL and test credentials:
 
 ```env
 E2E_BASE_URL=https://www.saucedemo.com
+VALID_USER_USERNAME=standard_user
+VALID_USER_PASSWORD=secret_sauce
+INVALID_USER_USERNAME=standard_user
+INVALID_USER_PASSWORD=12345
+LOCKED_USER_USERNAME=locked_out_user
+LOCKED_USER_PASSWORD=secret_sauce
 ```
 
 Create `.env.test` or `.env.prod` in the project root based on `.env.example`.

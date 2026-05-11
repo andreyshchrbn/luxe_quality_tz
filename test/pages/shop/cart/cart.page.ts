@@ -1,4 +1,3 @@
-import { $ } from '@wdio/globals';
 import { cartLocators } from './cart.locators';
 
 export class CartPage {

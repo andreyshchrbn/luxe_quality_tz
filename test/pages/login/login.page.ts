@@ -1,4 +1,3 @@
-import { $ } from '@wdio/globals';
 import { loginLocators } from './login.locators';
 
 export class LoginPage {

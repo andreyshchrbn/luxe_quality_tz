@@ -1,4 +1,3 @@
-import { $ } from '@wdio/globals';
 import { checkoutInformationLocators } from './checkout-information.locators';
 
 export class CheckoutInformationPage {
