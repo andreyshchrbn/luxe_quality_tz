@@ -16,17 +16,27 @@ export class InventoryActions {
         await this.inventoryPage.cartLink.click();
     }
 
-    async resetAppStateIfNotEmpty(): Promise<void> {
-        const hasCartItems = await this.inventoryPage.cartBadge.isExisting();
+    async sortByPriceLowToHigh(): Promise<void> {
+        await this.inventoryPage.sortSelect.selectByAttribute('value', 'lohi');
+    }
 
-        if (hasCartItems) {
-            await this.inventoryPage.openMenuButton.click();
-            await this.inventoryPage.resetAppStateLink.waitForDisplayed();
-            await this.inventoryPage.resetAppStateLink.click();
-            await this.inventoryPage.closeMenuButton.click();
+    async verifySelectedSortOption(expectedOption: string): Promise<void> {
+        await expect(this.inventoryPage.activeSortOption).toHaveText(expectedOption);
+    }
 
-            await expect(this.inventoryPage.cartBadge).not.toExist();
+    async verifyProductsAreSortedByPriceLowToHigh(): Promise<void> {
+        const priceElements = await this.inventoryPage.inventoryItemPrices;
+        const prices: number[] = [];
+
+        for (const priceElement of priceElements) {
+            const rawPrice = await priceElement.getText();
+
+            prices.push(Number(rawPrice.replace('$', '')));
         }
+
+        const sortedPrices = [...prices].sort((left, right) => left - right);
+
+        expect(prices).toEqual(sortedPrices);
     }
 
     async verifyEmptyCart(): Promise<void> {

@@ -42,6 +42,11 @@ export class LoginActions {
         await verifyCurrentUrl(expectedUrl);
     }
 
+    async verifyLoginFormIsEmpty(): Promise<void> {
+        await expect(this.loginPage.userNameInput).toHaveValue('');
+        await expect(this.loginPage.passwordInput).toHaveValue('');
+    }
+
     async verifyErrorMessageText(expectedText: string): Promise<void> {
         await this.loginPage.errorMessage.waitForDisplayed();
         await expect(this.loginPage.errorMessage).toHaveText(expectedText);

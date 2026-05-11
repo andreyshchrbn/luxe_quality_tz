@@ -13,15 +13,15 @@ export class InventoryPage {
         return $(inventoryLocators.cartLink);
     }
 
-    get openMenuButton() {
-        return $(inventoryLocators.openMenuButton);
+    get activeSortOption() {
+        return $(inventoryLocators.activeSortOption);
     }
 
-    get resetAppStateLink() {
-        return $(inventoryLocators.resetAppStateLink);
+    get sortSelect() {
+        return $(inventoryLocators.sortSelect);
     }
 
-    get closeMenuButton() {
-        return $(inventoryLocators.closeMenuButton);
+    get inventoryItemPrices() {
+        return $$(inventoryLocators.inventoryItemPrices);
     }
 }
