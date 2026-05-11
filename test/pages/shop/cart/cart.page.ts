@@ -9,7 +9,15 @@ export class CartPage {
         return $(cartLocators.cartItemName);
     }
 
+    get cartItems() {
+        return $$(cartLocators.cartItems);
+    }
+
     get checkoutButton() {
         return $(cartLocators.checkoutButton);
+    }
+
+    get emptyCartMessage() {
+        return $(cartLocators.emptyCartMessage);
     }
 }

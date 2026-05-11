@@ -26,11 +26,14 @@ export class InventoryActions {
 
     async verifyProductsAreSortedByPriceLowToHigh(): Promise<void> {
         const priceElements = await this.inventoryPage.inventoryItemPrices;
-        const prices = await priceElements.map(async (priceElement) => {
+        const prices: number[] = [];
+
+        for (const priceElement of priceElements) {
             const rawPrice = await priceElement.getText();
 
-            return Number(rawPrice.replace('$', ''));
-        });
+            prices.push(Number(rawPrice.replace('$', '')));
+        }
+
         const sortedPrices = [...prices].sort((left, right) => left - right);
 
         expect(prices).toEqual(sortedPrices);

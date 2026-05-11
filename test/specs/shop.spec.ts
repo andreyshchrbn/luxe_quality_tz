@@ -39,7 +39,13 @@ describe('Checkout Flow', () => {
         await checkoutCompleteActions.returnToHome(/.*inventory.html/);
         await inventoryActions.verifyEmptyCart();
     });
+    it.skip('TC-9: Checkout with empty cart should show "Cart is empty" message [TODO]', async () => {
+        await inventoryActions.openCart();
+        await cartActions.verifyCartIsEmpty();
+        await cartActions.proceedToCheckout();
 
+        await cartActions.verifyEmptyCartMessage('Cart is empty');
+    });
 });
 
 describe('Cart Persistence Flow', () => {
